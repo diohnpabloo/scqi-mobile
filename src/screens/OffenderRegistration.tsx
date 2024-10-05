@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Alert, TouchableOpacity } from "react-native";
-import { HStack, ScrollView, Text, VStack } from "@gluestack-ui/themed";
+import { HStack, ScrollView, Text, useToast, VStack } from "@gluestack-ui/themed";
 
 import { Controller, useForm } from "react-hook-form";
 import { FormDataProps } from "./Consultation";
@@ -14,12 +14,30 @@ import { UserPhoto } from "@components/UserPhoto";
 import * as ImagePicker from "expo-image-picker"
 import { AppError } from "@utils/AppError";
 import { api } from "../service/api";
+import { ToastMessage } from "@components/ToastMessage";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/AppRoutes";
 
 export function OffenderRegistration() {
     const [isLoading, setIsLoading] = useState(false)
     const [photo, setPhoto] = useState('')
     const [photoObject, setPhotoObject] = useState<ImagePicker.ImagePickerAsset | null>(null)
-    const { control, handleSubmit } = useForm<FormDataProps>()
+
+    const { control, handleSubmit, reset } = useForm<FormDataProps>()
+
+    const toast = useToast()
+    const navigation = useNavigation<AppNavigatorRoutesProps>()
+
+    function resetForm() {
+        reset()
+        setPhoto('')
+        setPhotoObject(null)
+        setIsLoading(false)
+    }
+
+    useFocusEffect(useCallback(() => {
+        resetForm()
+    }, []))
 
     async function handleOffenderPhotoSelect() {
         try {
@@ -74,11 +92,40 @@ export function OffenderRegistration() {
                 }
             })
 
+            toast.show({
+                placement: "top",
+                render: ({ id }) => (
+                    <ToastMessage
+                        id={id}
+                        title="Infrator cadastrado com sucesso"
+                        action="success"
+                        onClose={() => toast.close(id)}
+
+                    />
+                )
+            })
+
+            resetForm()
+            navigation.navigate("home")
+
         } catch (error) {
             setIsLoading(false)
             const isAppError = error instanceof AppError
             const title = isAppError ? error.message : "Não foi possível registrar o infrator."
-            Alert.alert("Registro", title)
+
+            toast.show({
+                placement: "top",
+                render: ({ id }) => (
+                    <ToastMessage
+                        id={id}
+                        title={title}
+                        action="error"
+                        onClose={() => toast.close(id)}
+                    />
+                )
+            })
+        } finally {
+            setIsLoading(false)
         }
     }
 

@@ -13,6 +13,7 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { AppError } from "@utils/AppError";
 import { Alert } from "react-native";
+import { ToastMessage } from "@components/ToastMessage";
 
 
 type FormData = {
@@ -44,7 +45,17 @@ export function SignIn() {
             const isAppError = error instanceof AppError
             const title = isAppError ? error.message : "Não foi possível fazer login!"
 
-            Alert.alert("Login", title)
+            toast.show({
+                placement: "top",
+                render: ({ id }) => (
+                    <ToastMessage
+                        id={id}
+                        title={title}
+                        action="error"
+                        onClose={() => toast.close(id)}
+                    />
+                )
+            })
         }
 
 

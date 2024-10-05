@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-import { VStack } from "@gluestack-ui/themed";
+import { useToast, VStack } from "@gluestack-ui/themed";
 
 import { Header } from "@components/Header";
 import { Input } from "@components/Input";
@@ -13,6 +13,7 @@ import { Alert } from "react-native";
 import { useConsultation } from "@hooks/useConsultation";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/AppRoutes";
+import { ToastMessage } from "@components/ToastMessage";
 
 export type FormDataProps = {
     cpf: string;
@@ -28,6 +29,8 @@ export function Consultation() {
     const [searchSelected, setSearchSelected] = useState('cpf');
     const { query, consultationData, isLoadingOffenderData } = useConsultation()
 
+    const toast = useToast()
+
     const navigation = useNavigation<AppNavigatorRoutesProps>()
 
     const { control, handleSubmit } = useForm<FormDataProps>();
@@ -40,7 +43,18 @@ export function Consultation() {
         } catch (error) {
             const isAppError = error instanceof AppError
             const title = isAppError ? error.message : "Erro ao realizar a consulta"
-            Alert.alert("Consulta", title)
+
+            toast.show({
+                placement: "top",
+                render: ({ id }) => (
+                    <ToastMessage
+                        id={id}
+                        title={title}
+                        action="error"
+                        onClose={() => toast.close(id)}
+                    />
+                )
+            })
         }
     }
 
