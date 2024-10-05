@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Center, Heading, Image, onChange, ScrollView, useToast, VStack } from "@gluestack-ui/themed";
+import { Center, Heading, Image, ScrollView, useToast, VStack } from "@gluestack-ui/themed";
 import Logo from "@assets/logo.png"
 
 import * as yup from "yup";

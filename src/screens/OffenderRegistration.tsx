@@ -12,7 +12,6 @@ import { Input } from "@components/Input";
 import { UserPhoto } from "@components/UserPhoto";
 
 import * as ImagePicker from "expo-image-picker"
-import axios from "axios";
 import { AppError } from "@utils/AppError";
 import { api } from "../service/api";
 

@@ -19,32 +19,31 @@ export function Home() {
     }
 
     return (
-        <VStack flex={1} bg="$gray600">
-            <Header
-                title="Painel principal"
-            />
+            <VStack flex={1} bg="$gray600">
+                <Header
+                    title="Painel principal"
+                />
+                <VStack mt="$8">
+                    <Center gap="$2">
+                        <UserPhoto
+                            source={UserDefault}
+                            alt="Foto do usuário"
+                        />
+                        <Heading color="$gray100">{user.name}</Heading>
 
-            <VStack mt="$8">
-                <Center gap="$2">
-                    <UserPhoto
-                        source={UserDefault}
-                        alt="Foto do usuário"
+                        <Text color="$gray300">{user.email}</Text>
+
+                        <Text color="$gray300">Matrícula: {user.register}</Text>
+                    </Center>
+                </VStack>
+
+                <Center mt="$20" gap="$2">
+                    <Heading color="$white">Painel de Consulta</Heading>
+
+                    <Card
+                        onPress={handleNewQuery}
                     />
-                    <Heading color="$gray100">{user.name}</Heading>
-
-                    <Text color="$gray300">{user.email}</Text>
-
-                    <Text color="$gray300">Matrícula: {user.register}</Text>
                 </Center>
             </VStack>
-
-            <Center mt="$20" gap="$2">
-                <Heading color="$white">Painel de Consulta</Heading>
-
-                <Card
-                    onPress={handleNewQuery}
-                />
-            </Center>
-        </VStack>
     );
 }

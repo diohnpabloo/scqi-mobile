@@ -21,10 +21,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<UserDTO>({} as UserDTO)
 
   async function userAndTokenUpdated(userData: UserDTO, token: string) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-     setUser(userData)
-    
+    setUser(userData)
+
   }
 
   async function SignIn(register: string, password: string) {
@@ -32,6 +32,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       const { data } = await api.post("/sessions", { register, password })
 
       if (data.user && data.token) {
+
         setIsLoadingUserData(true)
 
         await storageUserSave(data.user)

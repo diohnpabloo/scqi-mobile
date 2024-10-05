@@ -1,12 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 
+import { useAuth } from "@hooks/useAuth";
+import { USER_ROLES } from "@utils/roles";
 
 import { AuthRoutes } from "@routes/AuthRoutes";
 import { AppRoutes } from "./AppRoutes";
-import { useAuth } from "@hooks/useAuth";
 import { Loading } from "@components/Loading";
-import { useConsultation } from "@hooks/useConsultation";
-import { OffenderRegistration } from "@screens/OffenderRegistration";
+import { AdminRoutes } from "./AdminRoutes";
 
 
 export function Routes() {
@@ -15,9 +15,19 @@ export function Routes() {
         return <Loading />
     }
 
+    function AccessRoute() {
+        switch(user.role) {
+            case USER_ROLES.ADMIN:
+                return <AdminRoutes />
+            case USER_ROLES.CUSTOMER:
+                return <AppRoutes />
+                default: <AppRoutes />
+        }
+    }
+
     return (
         <NavigationContainer>
-            {user.id ? <OffenderRegistration /> : <AuthRoutes />}
+            {user.id ? <AccessRoute /> : <AuthRoutes />}
         </NavigationContainer>
     )
 }

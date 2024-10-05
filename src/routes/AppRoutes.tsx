@@ -1,8 +1,8 @@
 import { Platform } from "react-native";
 import { BottomTabNavigationProp, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon } from "@gluestack-ui/themed";
+import { Box, Icon } from "@gluestack-ui/themed";
 
-import { House, Search, Menu } from "lucide-react-native";
+import { House, Search, Ellipsis } from "lucide-react-native";
 
 import { Home } from "@screens/Home";
 import { Consultation } from "@screens/Consultation";
@@ -28,56 +28,58 @@ export function AppRoutes() {
 
     return (
         <ConsultationContextProvider>
-            <Navigator screenOptions={{
-                headerShown: false,
-                tabBarShowLabel: false,
-                tabBarActiveTintColor: tokens.colors.paletBlue600,
-                tabBarInactiveTintColor: tokens.colors.gray200,
-                tabBarStyle: {
-                    backgroundColor: tokens.colors.gray600,
-                    borderTopWidth: 0,
-                    height: Platform.OS === 'android' ? 'auto' : 96,
-                    paddingBottom: tokens.space[10],
-                    paddingTop: tokens.space[6],
-                }
+            <Box flex={1} bg="$gray700">
+                <Navigator screenOptions={{
+                    headerShown: false,
+                    tabBarShowLabel: false,
+                    tabBarActiveTintColor: tokens.colors.paletBlue600,
+                    tabBarInactiveTintColor: tokens.colors.gray200,
+                    tabBarStyle: {
+                        backgroundColor: tokens.colors.gray600,
+                        borderTopWidth: 0,
+                        height: Platform.OS === 'android' ? 'auto' : 96,
+                        paddingBottom: tokens.space[10],
+                        paddingTop: tokens.space[6],
+                    }
 
-            }}>
-                <Screen
-                    name="home"
-                    component={Home}
-                    options={{
-                        tabBarIcon: ({ color }) => (
-                            <Icon as={House} color={color} size="xl" />
-                        )
-                    }}
-                />
-                <Screen
-                    name="consultation"
-                    component={Consultation}
-                    options={{
-                        tabBarIcon: ({ color }) => <Icon as={Search} color={color} size="xl" />,
-                    }}
-                />
+                }}>
+                    <Screen
+                        name="home"
+                        component={Home}
+                        options={{
+                            tabBarIcon: ({ color }) => (
+                                <Icon as={House} color={color} size="xl" />
+                            )
+                        }}
+                    />
+                    <Screen
+                        name="consultation"
+                        component={Consultation}
+                        options={{
+                            tabBarIcon: ({ color }) => <Icon as={Search} color={color} size="xl" />,
+                        }}
+                    />
 
-                <Screen
-                    name="others"
-                    component={Others}
-                    options={{
-                        tabBarIcon: ({ color }) => (
-                            <Icon as={Menu} color={color} size="xl" />
-                        )
-                    }}
-                />
+                    <Screen
+                        name="others"
+                        component={Others}
+                        options={{
+                            tabBarIcon: ({ color }) => (
+                                <Icon as={Ellipsis} color={color} size="xl" />
+                            )
+                        }}
+                    />
 
-                <Screen
-                    name="offender"
-                    component={Offender}
-                    options={{
-                        tabBarButton: () => null
-                    }}
-                />
+                    <Screen
+                        name="offender"
+                        component={Offender}
+                        options={{
+                            tabBarButton: () => null
+                        }}
+                    />
 
-            </Navigator>
+                </Navigator>
+            </Box>
         </ConsultationContextProvider>
     );
 }
