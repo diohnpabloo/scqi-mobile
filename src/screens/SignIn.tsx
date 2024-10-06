@@ -28,7 +28,7 @@ const signInSchema = yup.object({
 
 export function SignIn() {
     const [isLoading, setIsLoading] = useState(false)
-    const { user, SignIn } = useAuth()
+    const { SignIn, user } = useAuth()
     const toast = useToast()
 
     const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
@@ -58,7 +58,6 @@ export function SignIn() {
             })
         }
 
-
     }
 
 
@@ -83,7 +82,6 @@ export function SignIn() {
                         render={({ field: { onChange, value } }) => (
                             <Input
                                 placeholder="Matrícula"
-                                keyboardType="number-pad"
                                 onChangeText={onChange}
                                 value={value}
                                 errorMessage={errors.register?.message}

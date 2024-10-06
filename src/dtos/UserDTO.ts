@@ -5,6 +5,8 @@ export type UserDTO = {
     name?: string
     email?: string
     role?: string
+    is_paid?: boolean
+    payment_due_date: string
     created_at?: string
     updated_at?: string
 }

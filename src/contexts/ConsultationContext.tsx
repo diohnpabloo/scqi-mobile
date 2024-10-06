@@ -20,19 +20,19 @@ export function ConsultationContextProvider({ children }: ConsultationContextPro
 
     async function query(cpf: string, name: string, surname: string, mother_name: string, date_of_birth: string) {
         try {
-            const { data } = await api.get("/offenders", {
-                params: {
-                    cpf: cpf || null,
-                    name: name || null,
-                    surname: surname || null,
-                    mother_name: mother_name || null,
-                    date_of_birth: date_of_birth || null
-                }
-            })
-            if (data.id) {
-                setIsLoadingOffenderData(true)
+            const params: any = {};
 
-                setConsultationData(data)
+            if (cpf) params.cpf = cpf;
+            if (name) params.name = name;
+            if (surname) params.surname = surname;
+            if (mother_name) params.mother_name = mother_name;
+            if (date_of_birth) params.date_of_birth = date_of_birth;
+
+            const { data } = await api.get("/offenders", { params });
+
+            if (data.id) {
+                setIsLoadingOffenderData(true);
+                setConsultationData(data);
             }
         } catch (error) {
             throw error

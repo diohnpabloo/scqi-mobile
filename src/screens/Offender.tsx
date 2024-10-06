@@ -2,7 +2,6 @@ import { Header } from "@components/Header";
 import { Center, Heading, Image, Text, VStack } from "@gluestack-ui/themed";
 import { useConsultation } from "@hooks/useConsultation";
 import { api } from "../service/api";
-import { formateData } from "../service/utils";
 import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/AppRoutes";
@@ -36,7 +35,7 @@ export function Offender() {
                         <Text color="$gray100">Nome: {consultationData?.name}</Text>
                         <Text color="$gray100">Apelido: {consultationData?.surname ? consultationData.surname : "Não cadastrado"}</Text>
                         <Text color="$gray100">Nome da mãe: {consultationData?.mother_name}</Text>
-                        <Text color="$gray100">Data de nascimento: {consultationData?.date_of_birth ? formateData(consultationData?.date_of_birth) : "Não cadastrado"}</Text>
+                        <Text color="$gray100">Data de nascimento: {consultationData?.date_of_birth}</Text>
                     </VStack>
                     
                     <Button title="Nova consulta" mt="$2" onPress={handleNewQuery}/>

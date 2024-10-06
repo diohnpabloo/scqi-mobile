@@ -1,17 +1,18 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { createDrawerNavigator, DrawerNavigationProp } from "@react-navigation/drawer"
+import { Box } from "@gluestack-ui/themed"
 
 import { AppRoutes } from "./AppRoutes"
 import { ConsultationContextProvider } from "@contexts/ConsultationContext"
+
+import { UserRegistration } from "@screens/UserRegistration"
 import { OffenderRegistration } from "@screens/OffenderRegistration"
 
 import { gluestackUIConfig } from "../../config/gluestack-ui.config"
-import { Box } from "@gluestack-ui/themed"
+import { Others } from "@screens/Others"
 
 type AdminRoutes = {
     feed: undefined
-    consultation: undefined
-    offender: undefined
     user_registration: undefined
     offender_registration: undefined
     others: undefined
@@ -46,10 +47,23 @@ export function AdminRoutes() {
                             component={AppRoutes}
                             options={{ drawerLabel: "Início" }}
                         />
+
+                        <Screen
+                            name="user_registration"
+                            component={UserRegistration}
+                            options={{ drawerLabel: "Registrar usuário" }}
+                        />
+
                         <Screen
                             name="offender_registration"
                             component={OffenderRegistration}
                             options={{ drawerLabel: "Registrar infrator" }}
+                        />
+
+                        <Screen
+                            name="others"
+                            component={Others}
+                            options={{ drawerLabel: "Outros" }}
                         />
                     </Navigator>
                 </Box>

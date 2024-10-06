@@ -3,6 +3,7 @@ import { UserDTO } from "@dtos/UserDTO";
 import { api } from "../service/api";
 import { storageUserSave, storageUserGet, storageUserRemove } from "@storage/storageUser";
 import { storageAuthTokenGet, storageAuthTokenRemove, storageAuthTokenSave } from "@storage/storageAuthToken";
+import { AppError } from "@utils/AppError";
 
 export type AuthContextDataProps = {
   user: UserDTO;
@@ -32,8 +33,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       const { data } = await api.post("/sessions", { register, password })
 
       if (data.user && data.token) {
-
         setIsLoadingUserData(true)
+
+        if(!data.user.is_paid) {
+          throw new AppError("Pagamento pendente! você não pode fazer login")
+        }
 
         await storageUserSave(data.user)
         await storageAuthTokenSave(data.token)
