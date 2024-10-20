@@ -14,19 +14,22 @@ export function ListOffenders() {
     const navigation = useNavigation<AppNavigatorRoutesProps>()
 
     function handleOpenOffenderDetails(offenderName: string) {
-        navigation.navigate("offender", {offenderName})
+        navigation.navigate("offender", { offenderName })
     }
 
     return (
         <VStack flex={1} bg="$gray600">
-            <Header title="Lista de infratores" />
+            <Header
+                title="Lista de infratores"
+                showBackButton
+            />
             <FlatList
                 data={consultationData}
                 keyExtractor={(item) => item.cpf || item.name || Math.random().toString(36)}
                 renderItem={({ item }) => (
                     <OffenderCard
                         data={item} onPress={() => {
-                            if(item.name) {
+                            if (item.name) {
                                 handleOpenOffenderDetails(item.name)
                             }
                         }}

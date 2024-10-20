@@ -79,7 +79,7 @@ export function OffenderRegistration() {
             } as any;
 
             const offenderInformationUploadForm = new FormData()
-            offenderInformationUploadForm.append('cpf', cpf || "Não cadastrado")
+            offenderInformationUploadForm.append('cpf', cpf || '')
             offenderInformationUploadForm.append('name', name || "Não cadastrado")
             offenderInformationUploadForm.append('surname', surname || "Não cadastrado")
             offenderInformationUploadForm.append('mother_name', mother_name || "Não cadastrado")

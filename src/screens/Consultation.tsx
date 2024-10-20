@@ -69,6 +69,7 @@ export function Consultation() {
             navigation.navigate("listoffenders")
         }
     }, [consultationData, navigation])
+    
     return (
         <VStack flex={1} bg="$gray600" >
             <Header
