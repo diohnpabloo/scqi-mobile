@@ -10,11 +10,13 @@ import { OffenderRegistration } from "@screens/OffenderRegistration"
 
 import { gluestackUIConfig } from "../../config/gluestack-ui.config"
 import { Others } from "@screens/Others"
+import { UpdateIsPaid } from "@screens/UpdatedUser"
 
 type AdminRoutes = {
     feed: undefined
     user_registration: undefined
     offender_registration: undefined
+    update_is_paid: undefined
     others: undefined
 }
 
@@ -58,6 +60,12 @@ export function AdminRoutes() {
                             name="offender_registration"
                             component={OffenderRegistration}
                             options={{ drawerLabel: "Registrar infrator" }}
+                        />
+                        
+                        <Screen
+                            name="update_is_paid"
+                            component={UpdateIsPaid}
+                            options={{ drawerLabel: "Atualizar pagamento" }}
                         />
 
                         <Screen

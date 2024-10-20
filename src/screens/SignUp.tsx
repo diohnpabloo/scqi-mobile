@@ -14,8 +14,8 @@ export function SignUp() {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ flex: 1 }}>
-            <VStack flex={1} bg="$gray600" px="$8" pb="$16">
+        <VStack flex={1} bg="$gray600" px="$8" pb="$16">
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
                 <Center>
                     <Image
                         source={Logo}
@@ -59,7 +59,7 @@ export function SignUp() {
                         onPress={handleGoBack}
                     />
                 </Center>
-            </VStack>
-        </ScrollView>
+            </ScrollView >
+        </VStack>
     )
 }

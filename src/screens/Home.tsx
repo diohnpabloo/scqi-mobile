@@ -9,7 +9,7 @@ import { Header } from "@components/Header";
 import { UserPhoto } from "@components/UserPhoto";
 import { Card } from "@components/Card";
 import { useAuth } from "@hooks/useAuth";
-import { ToastMessage } from "@components/ToastMessage";
+import { useConsultation } from "@hooks/useConsultation";
 
 export function Home() {
     const navigation = useNavigation<AppNavigatorRoutesProps>();
@@ -18,6 +18,7 @@ export function Home() {
     function handleNewQuery() {
         navigation.navigate('consultation');
     }
+
 
     return (
 

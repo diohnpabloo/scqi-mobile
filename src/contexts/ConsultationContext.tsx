@@ -3,7 +3,7 @@ import { ConsultationDTO } from "@dtos/ConsultationDTO";
 import { api } from "../service/api";
 
 export type ConsultationContextDataProps = {
-    consultationData: ConsultationDTO | undefined
+    consultationData: ConsultationDTO[]
     query: (cpf: string, name: string, surname: string, mother_name: string, date_of_birth: string) => Promise<void>
     isLoadingOffenderData: boolean
 }
@@ -15,12 +15,13 @@ type ConsultationContextProviderProps = {
 export const ConsultationContext = createContext<ConsultationContextDataProps>({} as ConsultationContextDataProps)
 
 export function ConsultationContextProvider({ children }: ConsultationContextProviderProps) {
-    const [consultationData, setConsultationData] = useState<ConsultationDTO>()
+    const [consultationData, setConsultationData] = useState<ConsultationDTO[]>([])
     const [isLoadingOffenderData, setIsLoadingOffenderData] = useState(false)
 
     async function query(cpf: string, name: string, surname: string, mother_name: string, date_of_birth: string) {
         try {
             const params: any = {};
+            setIsLoadingOffenderData(true);
 
             if (cpf) params.cpf = cpf;
             if (name) params.name = name;
@@ -30,16 +31,19 @@ export function ConsultationContextProvider({ children }: ConsultationContextPro
 
             const { data } = await api.get("/offenders", { params });
 
-            if (data.id) {
-                setIsLoadingOffenderData(true);
+            if (data && data.length > 0) {
                 setConsultationData(data);
+            } else {
+                setConsultationData([])
             }
+
         } catch (error) {
             throw error
         } finally {
             setIsLoadingOffenderData(false)
         }
     }
+    
 
     return (
         <ConsultationContext.Provider value={{ consultationData, query, isLoadingOffenderData }}>

@@ -2,7 +2,6 @@ import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { Icon, Text, VStack } from "@gluestack-ui/themed";
 
 import { UserSearch } from "lucide-react-native";
-import { ComponentProps } from "react";
 
 type Props = TouchableOpacityProps;
 

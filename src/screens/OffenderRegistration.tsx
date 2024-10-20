@@ -64,7 +64,7 @@ export function OffenderRegistration() {
         }
     }
 
-    async function handleRegistration({ cpf, name, surname, mother_name, date_of_birth }: FormDataProps) {
+    async function handleRegistration({ cpf, name, surname, mother_name, date_of_birth, address }: FormDataProps) {
         try {
             setIsLoading(true)
             if (!photoObject) {
@@ -79,11 +79,12 @@ export function OffenderRegistration() {
             } as any;
 
             const offenderInformationUploadForm = new FormData()
-            offenderInformationUploadForm.append('cpf', cpf)
-            offenderInformationUploadForm.append('name', name)
-            offenderInformationUploadForm.append('surname', surname)
-            offenderInformationUploadForm.append('mother_name', mother_name)
-            offenderInformationUploadForm.append('date_of_birth', date_of_birth)
+            offenderInformationUploadForm.append('cpf', cpf || "Não cadastrado")
+            offenderInformationUploadForm.append('name', name || "Não cadastrado")
+            offenderInformationUploadForm.append('surname', surname || "Não cadastrado")
+            offenderInformationUploadForm.append('mother_name', mother_name || "Não cadastrado")
+            offenderInformationUploadForm.append('address', address || "Não cadastrado")
+            offenderInformationUploadForm.append('date_of_birth', date_of_birth || "Não cadastrado")
             offenderInformationUploadForm.append('avatar', photoFile)
 
             await api.post("offenders", offenderInformationUploadForm, {
@@ -131,10 +132,12 @@ export function OffenderRegistration() {
 
     return (
         <VStack flex={1} bg="$gray600" >
-            <Header title="Registro de infrator" />
-            <ScrollView >
+            <Header
+                title="Registro de infrator"
+                showBackButton
+            />
+            <ScrollView>
                 <VStack px="$2" mt="$10" gap="$4">
-
                     <Controller
                         control={control}
                         name="cpf"
@@ -185,10 +188,22 @@ export function OffenderRegistration() {
 
                     <Controller
                         control={control}
+                        name="address"
+                        render={({ field: { onChange, value } }) => (
+                            <Input
+                                placeholder="Endereço: Rua, nº - Bairro"
+                                onChangeText={onChange}
+                                value={value}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
                         name="date_of_birth"
                         render={({ field: { onChange, value } }) => (
                             <Input
-                                placeholder="Data de nascimento ex: 16071998"
+                                placeholder="Data de nascimento ex: 16/07/1998"
                                 onChangeText={onChange}
                                 value={value}
                                 keyboardType="numbers-and-punctuation"

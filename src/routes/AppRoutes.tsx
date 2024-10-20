@@ -1,6 +1,8 @@
 import { Platform } from "react-native";
 import { BottomTabNavigationProp, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Box, Icon } from "@gluestack-ui/themed";
+import { gluestackUIConfig } from "../../config/gluestack-ui.config";
+import { ConsultationContextProvider } from "@contexts/ConsultationContext";
 
 import { House, Search, Ellipsis } from "lucide-react-native";
 
@@ -8,14 +10,14 @@ import { Home } from "@screens/Home";
 import { Consultation } from "@screens/Consultation";
 import { Others } from "@screens/Others";
 import { Offender } from "@screens/Offender";
-import { gluestackUIConfig } from "../../config/gluestack-ui.config";
-import { ConsultationContextProvider } from "@contexts/ConsultationContext";
+import { ListOffenders } from "@screens/ListOffenders";
 
 type AppRoutes = {
     home: undefined;
     consultation: undefined;
     others: undefined;
-    offender: undefined;
+    offender: {offenderName: string};
+    listoffenders: undefined;
 };
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -73,6 +75,13 @@ export function AppRoutes() {
                     <Screen
                         name="offender"
                         component={Offender}
+                        options={{
+                            tabBarButton: () => null
+                        }}
+                    />
+                    <Screen
+                        name="listoffenders"
+                        component={ListOffenders}
                         options={{
                             tabBarButton: () => null
                         }}

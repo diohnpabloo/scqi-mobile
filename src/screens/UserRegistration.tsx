@@ -63,7 +63,10 @@ export function UserRegistration() {
 
     return (
         <ScrollView contentContainerStyle={{ flex: 1 }}>
-            <Header title="Registrar usuário" />
+            <Header
+                title="Registrar usuário"
+                showBackButton
+            />
             <VStack flex={1} bg="$gray600" px="$2" pb="$16" >
                 <VStack flex={1} gap="$4" mt="$20">
 

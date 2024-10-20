@@ -7,6 +7,7 @@ import { AuthRoutes } from "@routes/AuthRoutes";
 import { AppRoutes } from "./AppRoutes";
 import { Loading } from "@components/Loading";
 import { AdminRoutes } from "./AdminRoutes";
+import { ListOffenders } from "@screens/ListOffenders";
 
 
 export function Routes() {

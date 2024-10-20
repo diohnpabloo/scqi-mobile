@@ -19,6 +19,7 @@ export type FormDataProps = {
     name: string;
     surname: string;
     mother_name: string
+    address: string
     date_of_birth: string;
     avatar?: string;
 }
@@ -64,14 +65,15 @@ export function Consultation() {
     }
 
     useEffect(() => {
-        if (consultationData) {
-            navigation.navigate("offender")
+        if (consultationData && consultationData.length > 0) {
+            navigation.navigate("listoffenders")
         }
-    }, [consultationData])
+    }, [consultationData, navigation])
     return (
         <VStack flex={1} bg="$gray600" >
             <Header
                 title="Consultas"
+                showBackButton
             />
             <ScrollView>
                 <VStack flex={1} px="$2" gap="$2" alignItems="center" mt="$20">

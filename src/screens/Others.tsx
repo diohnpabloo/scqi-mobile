@@ -8,7 +8,10 @@ export function Others() {
 
     return (
         <VStack flex={1} bg="$gray600">
-            <Header title="Outros" />
+            <Header
+                title="Outros"
+                showBackButton
+            />
 
             <VStack flex={1} mt="$10" px="$2">
                 <Pressable onPress={SignOut}>
