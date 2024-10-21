@@ -40,6 +40,7 @@
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.7.2",
     "@types/react": "~18.2.45",
+    "react-native-dotenv": "^3.4.11",
     "typescript": "~5.3.3"
   },
   "private": true
