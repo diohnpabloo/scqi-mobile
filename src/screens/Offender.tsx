@@ -11,11 +11,13 @@ import { ConsultationDTO } from "@dtos/ConsultationDTO";
 import { api } from "../service/api";
 
 import { formatCPF, formateDate } from "@utils/Formats";
+import { Dimensions } from "react-native";
 
 type RouteParamsProps = {
     offenderName: string
 }
 
+const { width } = Dimensions.get('window')
 export function Offender() {
     const [offender, setOffender] = useState<ConsultationDTO>({} as ConsultationDTO)
     const navigation = useNavigation<AppNavigatorRoutesProps>()
@@ -26,6 +28,7 @@ export function Offender() {
     async function fetchOffenderDetails() {
         try {
             const { data } = await api.get(`/offenders/${offenderName}`)
+            console.log(data)
             setOffender(data)
 
         } catch (error) {
@@ -53,7 +56,7 @@ export function Offender() {
                         alt="Imagem infrator"
                     />
 
-                    <VStack bg="$gray400" rounded="$md" px="$4" py="$10" mt="$5" gap="$2">
+                    <VStack  bg="$gray400" rounded="$md" px="$4" py="$10" mt="$5" gap="$2">
                         <Text color="$gray100">CPF: {offender.cpf ? formatCPF(offender.cpf) : "Não cadastrado"}</Text>
                         <Text color="$gray100">Nome: {offender?.name}</Text>
                         <Text color="$gray100">Apelido: {offender?.surname ? offender.surname : "Não cadastrado"}</Text>
