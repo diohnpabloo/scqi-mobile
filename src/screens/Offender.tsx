@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Image, ScrollView, Text, VStack } from "@gluestack-ui/themed";
+import { Image, ScrollView, Text, useToast, VStack } from "@gluestack-ui/themed";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 
@@ -12,6 +12,8 @@ import { api } from "../service/api";
 
 import { formatCPF, formateDate } from "@utils/Formats";
 import { Dimensions } from "react-native";
+import { AppError } from "@utils/AppError";
+import { ToastMessage } from "@components/ToastMessage";
 
 type RouteParamsProps = {
     offenderName: string
@@ -22,21 +24,35 @@ export function Offender() {
     const [offender, setOffender] = useState<ConsultationDTO>({} as ConsultationDTO)
     const navigation = useNavigation<AppNavigatorRoutesProps>()
 
+    const toast = useToast()
+
     const route = useRoute()
     const { offenderName } = route.params as RouteParamsProps
 
     async function fetchOffenderDetails() {
         try {
             const { data } = await api.get(`/offenders/${offenderName}`)
-            console.log(data)
             setOffender(data)
 
         } catch (error) {
-            console.log(error)
+            const isAppError = error instanceof AppError
+            const title = isAppError ? error.message : "Detalhes do infrator não foram encontrados na base de dados."
+
+            toast.show({
+                            placement: "top",
+                            render: ({ id }) => (
+                                <ToastMessage
+                                    id={id}
+                                    title={title}
+                                    action="error"
+                                    onClose={() => toast.close(id)}
+                                />
+                            )
+                        })
         }
     }
 
-    function handleNewQuery() {
+    function handleNewQuery() { 
         navigation.navigate("consultation")
     }
 
