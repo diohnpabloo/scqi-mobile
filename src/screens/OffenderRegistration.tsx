@@ -44,7 +44,7 @@ export function OffenderRegistration() {
             const photoSelected = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 quality: 1,
-                aspect: [8, 4],
+                aspect: [1, 1],
                 allowsEditing: true,
             })
             if (photoSelected.canceled) {
